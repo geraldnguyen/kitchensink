@@ -48,6 +48,7 @@ class SampleServiceTest {
         // arrange
         when(sampleRepository.save(any(SampleEntity.class))).thenAnswer(a -> {
             SampleEntity entity = a.getArgument(0);
+            // assert - the right param passed
             assertEquals("sample", entity.getName());
             assertNull(entity.getId());
             entity.setId(1L);
