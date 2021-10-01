@@ -2,13 +2,13 @@ package example.codereview;
 
 /**
  * This model class contains 2 properties `name` and `description`
- * It also contains method name `calculate` which returns the longest
+ * It also contains method name `maxLength` which returns the longest
  * prefix whose reversed order is a suffix (e.g. `abXXXXba`) without overlapping
  *
  * Imagine a colleague create this class and submit it for code review,
- * please let us know what you think are done well and what not
+ * please show us how you would review this code
  */
-public class CodeReview1 {
+public class PrefixSuffixProblem {
     public String name;
     public String description;
 
@@ -28,7 +28,7 @@ public class CodeReview1 {
         this.description = description;
     }
 
-    public String calculate(String str){
+    public String maxLength(String str){
         String temp = "";
         for(int i=0;i<str.length()/2;i++   ){
         if (str.charAt(i) == str.charAt(str.length() - 1 - i)) {

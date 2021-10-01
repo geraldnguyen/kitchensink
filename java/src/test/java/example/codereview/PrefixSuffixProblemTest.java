@@ -7,7 +7,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CodeReview1Test {
+class PrefixSuffixProblemTest {
 
     @Test
     void calculate() {
@@ -24,9 +24,9 @@ class CodeReview1Test {
             Pair.of("fsfs34343222sff", "f")
         );
 
-        CodeReview1 codeReview1 = new CodeReview1();
+        PrefixSuffixProblem prefixSuffixProblem = new PrefixSuffixProblem();
         tcs.forEach(tc -> {
-            assertEquals(tc.getSecond(), codeReview1.calculate(tc.getFirst()),
+            assertEquals(tc.getSecond(), prefixSuffixProblem.maxLength(tc.getFirst()),
                 String.format("Expect calculate(%s) = `%s`", tc.getFirst(), tc.getSecond()));
         });
     }
