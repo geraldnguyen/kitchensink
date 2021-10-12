@@ -48,7 +48,10 @@ class MethodReferenceTest {
         @Test
         void invoke_the_method_on_the_owning_object() {
             var aList = List.of("a", "b", "c");
-            assertEquals(List.of("hello a", "hello b", "hello c"), aList.stream().map("hello "::concat).collect(Collectors.toList()));
+            assertEquals(
+                List.of("hello a", "hello b", "hello c"),
+                aList.stream().map("hello "::concat).collect(Collectors.toList())
+            );
         }
 
         @Test
