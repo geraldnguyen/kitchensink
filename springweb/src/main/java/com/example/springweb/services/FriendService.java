@@ -34,4 +34,27 @@ public class FriendService {
     private FriendEntity dtoToEntity(FriendDTO dto) {
         return FriendEntity.builder().id(dto.getId()).name(dto.getName()).createDt(dto.getCreateDt()).build();
     }
+
+    public List<FriendDTO> findByName(String name) {
+        return friendRepository.findByName(name).stream()
+            .map(this::entityToDTO)
+            .collect(Collectors.toList());
+    }
+
+    public List<FriendDTO> findByFriendId(Long id) {
+        return friendRepository.findById(id).stream()
+            .map(this::entityToDTO)
+            .collect(Collectors.toList());
+    }
+
+    public void removeFriend(long friendId) {
+        friendRepository.deleteById(friendId);
+    }
+
+    public FriendDTO updateName(long friendId, String newName) {
+        var friend = friendRepository.findById(friendId).orElseThrow();
+        friend.setName(newName);
+
+        return entityToDTO(friendRepository.save(friend));
+    }
 }
