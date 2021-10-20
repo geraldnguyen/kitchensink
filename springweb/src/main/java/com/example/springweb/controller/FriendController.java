@@ -2,6 +2,7 @@ package com.example.springweb.controller;
 
 import com.example.springweb.data.dto.FriendDTO;
 import com.example.springweb.services.FriendService;
+import org.springframework.http.HttpStatus;
 import org.springframework.lang.Nullable;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -65,6 +66,7 @@ public class FriendController {
      * Response to DELETE /friends/{friend's id} request, return 204 if successful
      * @param friendId the id of the friend
      */
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{friendId}")
     public void deleteFriend(@PathVariable long friendId) {
         friendService.removeFriend(friendId);
