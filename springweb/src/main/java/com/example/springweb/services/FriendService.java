@@ -3,6 +3,7 @@ package com.example.springweb.services;
 import com.example.springweb.data.dto.FriendDTO;
 import com.example.springweb.data.entity.FriendEntity;
 import com.example.springweb.data.repository.FriendRepository;
+import com.example.springweb.exception.FriendNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -52,9 +53,14 @@ public class FriendService {
     }
 
     public FriendDTO updateName(long friendId, String newName) {
-        var friend = friendRepository.findById(friendId).orElseThrow();
+        var friend = friendRepository.findById(friendId).orElseThrow(FriendNotFoundException::new);
         friend.setName(newName);
 
         return entityToDTO(friendRepository.save(friend));
+    }
+
+    public FriendDTO getFriend(long friendId) {
+        var friend = friendRepository.findById(friendId).orElseThrow();
+        return entityToDTO(friend);
     }
 }

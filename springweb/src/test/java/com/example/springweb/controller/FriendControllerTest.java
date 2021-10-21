@@ -1,6 +1,7 @@
 package com.example.springweb.controller;
 
 import com.example.springweb.data.dto.FriendDTO;
+import com.example.springweb.exception.FriendNotFoundException;
 import com.example.springweb.services.FriendService;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -8,11 +9,13 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
@@ -74,6 +77,29 @@ class FriendControllerTest {
                 .andExpect(content().json("[ {'id': 1, 'name': 'world'}]"))
             ;
         }
+
+
+    }
+    @Nested
+    class GetFriend {
+        @Test
+        void successful() throws Exception {
+            when(friendService.getFriend(123L)).thenReturn(FriendDTO.builder().id(1L).name("world").build());
+
+            mockMvc.perform(get("/friends/123"))
+                .andExpect(status().isOk())
+                .andExpect(content().json("{'id': 1, 'name': 'world'}"))
+            ;
+        }
+
+        @Test
+        void friendNotFound() throws Exception {
+            when(friendService.getFriend(123L)).thenThrow(new NoSuchElementException());
+
+            mockMvc.perform(get("/friends/123"))
+                .andExpect(status().isNotFound());
+        }
+
     }
 
     @Nested
@@ -108,25 +134,48 @@ class FriendControllerTest {
         }
     }
 
-    @Test
-    void deleteFriend() throws Exception {
-        mockMvc.perform(delete("/friends/123"))
-            .andExpect(status().isNoContent());
+    @Nested
+    class DeleteFriend {
+        @Test
+        void successful() throws Exception {
+            mockMvc.perform(delete("/friends/123"))
+                .andExpect(status().isNoContent());
 
-        verify(friendService).removeFriend(123L);
+            verify(friendService).removeFriend(123L);
+        }
+
+        @Test
+        void friendNotFound() throws Exception {
+            doThrow(new EmptyResultDataAccessException(1)).when(friendService).removeFriend(123L);
+
+            mockMvc.perform(delete("/friends/123"))
+                .andDo(print())
+                .andExpect(status().isNotFound());
+        }
     }
 
-    @Test
-    void updateFriend() throws Exception {
-        when(friendService.updateName(123, "newName"))
-            .thenReturn(FriendDTO.builder().id(123L).name("newName").build());
+    @Nested
+    class UpdateFriend {
+        @Test
+        void successful() throws Exception {
+            when(friendService.updateName(123, "newName"))
+                .thenReturn(FriendDTO.builder().id(123L).name("newName").build());
 
-        mockMvc.perform(patch("/friends/123/newName"))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.id", is(123)))
-            .andExpect(jsonPath("$.name", is("newName")))
-            ;
+            mockMvc.perform(patch("/friends/123/newName"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is(123)))
+                .andExpect(jsonPath("$.name", is("newName")));
 
-        verify(friendService).updateName(123L, "newName");
+            verify(friendService).updateName(123L, "newName");
+        }
+
+        @Test
+        void friendNotFound() throws Exception {
+            when(friendService.updateName(123, "newName"))
+                .thenThrow(new FriendNotFoundException());
+
+            mockMvc.perform(patch("/friends/123/newName"))
+                .andExpect(status().isNotFound());
+        }
     }
 }

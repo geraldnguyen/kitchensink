@@ -2,6 +2,8 @@ package com.example.springweb.controller;
 
 import com.example.springweb.data.dto.FriendDTO;
 import com.example.springweb.services.FriendService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.Nullable;
 import org.springframework.util.StringUtils;
@@ -13,6 +15,7 @@ import java.util.List;
 /**
  * A rest controller for Friend-related operations
  */
+@Slf4j
 @RestController
 @RequestMapping("/friends")
 public class FriendController {
@@ -38,6 +41,16 @@ public class FriendController {
         } else {
             return friendService.findAll();
         }
+    }
+
+    /**
+     * Response to a GE T /friends/{friendId} request
+     * @param friendId the friend's Id
+     * @return the friend associated with provided id
+     */
+    @GetMapping("/{friendId}")
+    public FriendDTO getFriend(@PathVariable long friendId) {
+        return friendService.getFriend(friendId);
     }
 
     /**
@@ -70,6 +83,12 @@ public class FriendController {
     @DeleteMapping("/{friendId}")
     public void deleteFriend(@PathVariable long friendId) {
         friendService.removeFriend(friendId);
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(EmptyResultDataAccessException.class)
+    protected void handleDeleteNotFoundException(EmptyResultDataAccessException erdae) {
+        log.error("Provided Friend Id not found", erdae);
     }
 
     /**
