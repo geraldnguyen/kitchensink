@@ -30,6 +30,33 @@ class TakeWhilePositiveTest {
         );
     }
 
+    @ParameterizedTest
+    @MethodSource("testCases")
+    void takeWhile3(List<Integer> list, List<Integer> expected) {
+        assertEquals(
+            expected,
+            TakeWhilePositive.takeWhile3(list)
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("testCases")
+    void takeWhile4(List<Integer> list, List<Integer> expected) {
+        assertEquals(
+            expected,
+            TakeWhilePositive.takeWhile4(list)
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("testCases")
+    void takeWhile5(List<Integer> list, List<Integer> expected) {
+        assertEquals(
+            expected,
+            TakeWhilePositive.takeWhile5(list)
+        );
+    }
+
     private static Stream<Arguments> testCases() {
         return Stream.of(
             List.<Integer>of(),

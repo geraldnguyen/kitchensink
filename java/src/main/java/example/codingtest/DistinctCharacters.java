@@ -13,7 +13,7 @@ public final class DistinctCharacters {
             characters.add(c);
         }
         List<Character> result = new ArrayList<>(characters);
-        result.sort((c1, c2) -> c1 - c2);  
+        result.sort((c1, c2) -> c1 - c2);   // NOSONAR
         return result;
     }
 
