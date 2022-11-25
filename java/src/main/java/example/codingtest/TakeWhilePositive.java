@@ -33,6 +33,21 @@ public final class TakeWhilePositive {
         return result;
     }
 
+    public static List<Integer> takeWhile1Stream(List<Integer> ints) {
+        Map<String, Boolean> stopFlag = new HashMap<>();
+        List<Integer> result = new ArrayList<>();
+
+        for (Integer i : ints) {
+            if (i > 0 && !stopFlag.containsKey("stop")) {
+                result.add(i);
+            } else {
+                stopFlag.put("stop", true);
+            }
+        }
+
+        return result;
+    }
+
 
     public static List<Integer> takeWhile2(List<Integer> ints) {
         Map<String, Boolean> stopFlag = new HashMap<>();
@@ -66,18 +81,6 @@ public final class TakeWhilePositive {
     }
 
     public static List<Integer> takeWhile4(List<Integer> ints) {
-        int firstNonPositiveIdx = IntStream.range(0, ints.size())
-            .filter(idx -> ints.get(idx) <= 0)
-            .findFirst().orElse(-1);
-        if (firstNonPositiveIdx < 0) {
-            return ints;
-        }
-
-        return ints.stream().limit(firstNonPositiveIdx).collect(Collectors.toList());
-        // alternatively we can `IntStream.range(0, firstNonPositiveIdx)` to just pick the element out of ints
-    }
-
-    public static List<Integer> takeWhile5(List<Integer> ints) {
         int firstNonPositiveIdx = -1;
         for (int i = 0; i < ints.size(); i++) {
             if (ints.get(i) <= 0) {
@@ -89,5 +92,17 @@ public final class TakeWhilePositive {
             return ints;
         }
         return ints.subList(0, firstNonPositiveIdx);
+    }
+
+    public static List<Integer> takeWhile5(List<Integer> ints) {
+        int firstNonPositiveIdx = IntStream.range(0, ints.size())
+            .filter(idx -> ints.get(idx) <= 0)
+            .findFirst().orElse(-1);
+        if (firstNonPositiveIdx < 0) {
+            return ints;
+        }
+
+        return ints.stream().limit(firstNonPositiveIdx).collect(Collectors.toList());
+        // alternatively we can `IntStream.range(0, firstNonPositiveIdx)` to just pick the element out of ints
     }
 }

@@ -32,6 +32,15 @@ class TakeWhilePositiveTest {
 
     @ParameterizedTest
     @MethodSource("testCases")
+    void takeWhile1Stream(List<Integer> list, List<Integer> expected) {
+        assertEquals(
+                expected,
+                TakeWhilePositive.takeWhile1Stream(list)
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("testCases")
     void takeWhile2(List<Integer> list, List<Integer> expected) {
         assertEquals(
             expected,
