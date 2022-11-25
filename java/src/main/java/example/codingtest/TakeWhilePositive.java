@@ -5,6 +5,19 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public final class TakeWhilePositive {
+
+    public static List<Integer> takeWhile0(List<Integer> ints) {
+        List<Integer> result = new ArrayList<>();
+
+        for (int integer : ints) {
+            if (integer > 0) {
+                result.add(integer);
+            } else break;
+        }
+
+        return result;
+    }
+
     public static List<Integer> takeWhile1(List<Integer> ints) {
         boolean stop = false;
         List<Integer> result = new ArrayList<>();
