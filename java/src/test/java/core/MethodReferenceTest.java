@@ -108,7 +108,7 @@ class MethodReferenceTest {
             // or any compatible Functional Interface
             assertEquals(
                 LocalDateTime.of(2021, 10, 11, 2, 3),
-                threeParam(LocalDate::atTime));
+                threeParam(LocalDate::atTime)); // public LocalDateTime atTime(int hour, int minute)
         }
     }
 
