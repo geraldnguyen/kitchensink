@@ -3,6 +3,7 @@ package com.example.springweb.multiple_bag_fetch_exception.data.repository;
 import com.example.springweb.multiple_bag_fetch_exception.data.entity.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -33,5 +34,33 @@ public interface PostRepository extends JpaRepository<Post, Long> {
             "    join fetch p.tags")
     List<Post> findAll_fetchTags();
 
+    /**
+     * vvvvv Queries with conditions vvvvv
+     */
+
+    @Query("select distinct p\n" +
+            "    from Post p\n" +
+            "    join fetch p.comments\n" +
+            "     where p.id % 2 = 1")
+    List<Post> findOddPosts_fetchComments();
+
+    @Query("select distinct p\n" +
+            "    from Post p\n" +
+            "    join fetch p.tags\n" +
+            "     where p.id % 2 = 1")
+    List<Post> findOddPosts_fetchTags();
+
+
+    @Query("select distinct p\n" +
+            "    from Post p\n" +
+            "    join fetch p.comments\n" +
+            "     where p.id % 2 = 0")
+    List<Post> findEvenPosts_fetchComments();
+
+    @Query("select distinct p\n" +
+            "    from Post p\n" +
+            "    join fetch p.tags\n" +
+            "     where p in  :posts")
+    List<Post> fetchTags(@Param("posts") List<Post> posts);
 
 }

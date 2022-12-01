@@ -43,6 +43,19 @@ public class PostController {
         return postRepository.findAll_fetchTags();
     }
 
+    @GetMapping("/odd")
+    public List<Post> odd() {
+        var posts = postRepository.findOddPosts_fetchComments();
+        return postRepository.findOddPosts_fetchTags();
+    }
+
+
+    @GetMapping("/even")
+    public List<Post> even() {
+        var posts = postRepository.findEvenPosts_fetchComments();
+        return postRepository.fetchTags(posts);
+    }
+
     @PostMapping("/samples")
     public List<Post> createSample() {
         var tags = List.of(
