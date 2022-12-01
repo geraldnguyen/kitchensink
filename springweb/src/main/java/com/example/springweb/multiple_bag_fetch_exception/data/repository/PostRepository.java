@@ -28,6 +28,10 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 //    com.example.springweb.multiple_bag_fetch_exception.data.entity.Post.tags]
 //    List<Post> findAll_fetchCommentsAndTags();
 
+    @Query("select distinct p\n" +
+            "    from Post p\n" +
+            "    join fetch p.tags")
+    List<Post> findAll_fetchTags();
 
 
 }

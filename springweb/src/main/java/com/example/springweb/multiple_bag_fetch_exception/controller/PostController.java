@@ -37,6 +37,12 @@ public class PostController {
         return postRepository.findAll_fetchComments();
     }
 
+    @GetMapping("/fetch-all")
+    public List<Post> fetchAll() {
+        var posts = postRepository.findAll_fetchComments();
+        return postRepository.findAll_fetchTags();
+    }
+
     @PostMapping("/samples")
     public List<Post> createSample() {
         var tags = List.of(
