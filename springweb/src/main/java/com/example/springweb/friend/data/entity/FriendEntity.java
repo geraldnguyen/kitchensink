@@ -1,4 +1,4 @@
-package com.example.springweb.data.entity;
+package com.example.springweb.friend.data.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

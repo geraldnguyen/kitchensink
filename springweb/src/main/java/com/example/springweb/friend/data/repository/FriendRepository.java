@@ -1,6 +1,6 @@
-package com.example.springweb.data.repository;
+package com.example.springweb.friend.data.repository;
 
-import com.example.springweb.data.entity.FriendEntity;
+import com.example.springweb.friend.data.entity.FriendEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

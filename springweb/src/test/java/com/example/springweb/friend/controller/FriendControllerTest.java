@@ -1,8 +1,9 @@
-package com.example.springweb.controller;
+package com.example.springweb.friend.controller;
 
-import com.example.springweb.data.dto.FriendDTO;
-import com.example.springweb.exception.FriendNotFoundException;
-import com.example.springweb.services.FriendService;
+import com.example.springweb.friend.data.dto.FriendDTO;
+import com.example.springweb.friend.controller.FriendController;
+import com.example.springweb.friend.exception.FriendNotFoundException;
+import com.example.springweb.friend.services.FriendService;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;

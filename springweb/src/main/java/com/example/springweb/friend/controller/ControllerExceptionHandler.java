@@ -1,6 +1,6 @@
-package com.example.springweb.controller;
+package com.example.springweb.friend.controller;
 
-import com.example.springweb.data.dto.ErrorDTO;
+import com.example.springweb.friend.data.dto.ErrorDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpEntity;

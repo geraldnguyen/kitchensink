@@ -1,4 +1,4 @@
-package com.example.springweb.data.dto;
+package com.example.springweb.friend.data.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

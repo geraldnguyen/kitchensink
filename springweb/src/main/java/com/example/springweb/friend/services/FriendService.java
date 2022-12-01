@@ -1,9 +1,9 @@
-package com.example.springweb.services;
+package com.example.springweb.friend.services;
 
-import com.example.springweb.data.dto.FriendDTO;
-import com.example.springweb.data.entity.FriendEntity;
-import com.example.springweb.data.repository.FriendRepository;
-import com.example.springweb.exception.FriendNotFoundException;
+import com.example.springweb.friend.data.dto.FriendDTO;
+import com.example.springweb.friend.data.entity.FriendEntity;
+import com.example.springweb.friend.data.repository.FriendRepository;
+import com.example.springweb.friend.exception.FriendNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
