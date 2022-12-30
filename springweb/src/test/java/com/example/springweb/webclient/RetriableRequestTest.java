@@ -55,8 +55,11 @@ class RetriableRequestTest {
         // response to first request with fail status
         mockBackEnd.enqueue(new MockResponse().setResponseCode(status.value()));
 
-        // assert that first request failed with a 401
-        assertThrows(WebClientResponseException.class, () -> request.block());
+        // assert that exception thrown due to non-200 response
+        var ex = assertThrows(WebClientResponseException.class, () -> request.block());
+        assertEquals(status, ex.getStatusCode());
+
+        // extra assert that the path is correct
         assertEquals(PATH, mockBackEnd.takeRequest().getPath());
     }
 
@@ -120,7 +123,7 @@ class RetriableRequestTest {
                 ;
         */
         var request = Mono.defer(() -> webClient.get()
-                .uri("/employee/100")
+                .uri(PATH)
                 .headers(headers -> headers.set(HttpHeaders.AUTHORIZATION, tokenSupplier.getToken()))
                 .retrieve()
                 .bodyToMono(String.class)
