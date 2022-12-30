@@ -116,7 +116,7 @@ class RetriableRequestTest {
         /*
         The below doesn't work because webclient probably reuses the request instance
         var request = webClient.get()
-                .uri("/employee/100")
+                .uri(PATH)
                 .headers(headers -> headers.set(HttpHeaders.AUTHORIZATION, tokenSupplier.getToken()))
                 .retrieve()
                 .bodyToMono(String.class)
