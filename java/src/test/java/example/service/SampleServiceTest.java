@@ -25,7 +25,7 @@ class SampleServiceTest {
     }
 
     @Test
-    void workHardMocking() {
+    void workHardVerifying() {
         // arrange
         SampleEntity mockEntity = new SampleEntity();
         mockEntity.setId(1L);
@@ -36,6 +36,7 @@ class SampleServiceTest {
 
         // assert - the right entity returned
         assertEquals(mockEntity, sampleEntity);
+
         // assert - the right param passed
         ArgumentCaptor<SampleEntity> sampleEntityArgumentCaptor = ArgumentCaptor.forClass(SampleEntity.class);
         verify(sampleRepository).save(sampleEntityArgumentCaptor.capture());
