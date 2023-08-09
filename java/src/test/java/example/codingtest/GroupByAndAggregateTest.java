@@ -1,6 +1,5 @@
 package example.codingtest;
 
-import core.GroupByTest;
 import lombok.Builder;
 import lombok.Data;
 import org.junit.jupiter.api.Test;
