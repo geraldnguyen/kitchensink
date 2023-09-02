@@ -83,13 +83,12 @@ class CopyByValueTest {
         saveWorkbook(sourceWB, Files.createTempFile("source", ".xlsx"));
 
         // arrange: target
-        var targetFile = Files.createTempFile("target", ".xlsx");
         var targetWB = new Workbook();
         var targetWS = targetWB.getWorksheets().add("target");
 
         // act
         action.copy(sourceWS, targetWS);
-        targetWB.save(targetFile.toAbsolutePath().toString());
+        saveWorkbook(targetWB, Files.createTempFile("target", ".xlsx"));
 
         // assert
         assertEquals(3, sourceWS.getCells().get("A3").getIntValue());
@@ -117,7 +116,7 @@ class CopyByValueTest {
 
         // act
         action.copy(sourceWS, targetWS);
-        targetWB.save(targetFile.toAbsolutePath().toString());
+        saveWorkbook(targetWB, Files.createTempFile("target", ".xlsx"));
 
         // assert
         assertEquals(3, sourceWS.getCells().get("A3").getIntValue());
